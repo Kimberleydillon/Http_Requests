@@ -1,4 +1,5 @@
-var request = require("request"); //gets require module
+//Using Request
+var request = require("request"); //requires request module
 
 function readHTML (url, callback){ //intial function called
   request(url, callback); //requests url then asychronously applies cb function
@@ -14,3 +15,26 @@ function getBody (error, response, body){ // cb function to print body
   }
 }
 readHTML('http://kimberleydillon.github.io/', getBody); //calling main function with url and cb.
+
+
+// Using Http
+
+var http = require("http");
+
+var requestOptions = {
+  host: "kimberleydillon.github.io",
+  path: "/"
+};
+
+http.get(requestOptions, (response) => {    // HTTP Response Callback
+var allData = ""
+  response.setEncoding("utf8");             // Use UTF-8 encoding
+
+  response.on("data", function(data) {           // push html data to variable
+    allData += data ;
+  });
+
+    console.log(allData);//prints html
+  });
+
+});
